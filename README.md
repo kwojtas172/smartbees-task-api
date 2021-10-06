@@ -1,0 +1,1 @@
+# SMARTBEES - API for recruitment task
