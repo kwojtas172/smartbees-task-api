@@ -10,11 +10,11 @@ const url = 'mongodb+srv://smartbees:izpXyBZ2osn8psXT@cluster0.j1p6v.mongodb.net
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { // redirect to /1
   res.redirect('/1');
 })
 
-app.get('/:id', (req, res) => {
+app.get('/:id', (req, res) => { //regular id: 1-5
   if(Number(req.path.slice(1)) < 1 || Number(req.path.slice(1)) > 5) return res.end();
     MongoClient.connect(url, function(err, data) {
         if (err) throw err;
@@ -30,7 +30,7 @@ app.get('/:id', (req, res) => {
   });
 
 
-app.post('/users', (req, res) => {
+app.post('/users', (req, res) => { //for checking to existing user
   const user = req.body;
   MongoClient.connect(url, function(err, data) {
     if (err) throw err;
@@ -46,7 +46,7 @@ app.post('/users', (req, res) => {
 
 })
 
-app.post('/discounts', (req, res) => {
+app.post('/discounts', (req, res) => { //to check is discount code is existing and active
 
   const code = req.body.code;
 
@@ -64,10 +64,10 @@ app.post('/discounts', (req, res) => {
 
 });
 
-app.post('/orders', (req, res) => {
+app.post('/orders', (req, res) => { //to validate and add order to db
     const form = req.body;
-    const patternText = new RegExp('^[A-Z][a-z]{2,50}$');
-    const patternAddress = new RegExp('^[A-Za-z0-9 \/]{2,99}$');
+    const patternText = new RegExp('^[A-Z][a-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{2,50}$');
+    const patternAddress = new RegExp('^[A-Za-z0-9żźćńółęąśŻŹĆĄŚĘŁÓŃ \/]{2,99}$');
     const patternEmail = new RegExp('^[A-Za-z0-9._]{2,}@[a-z]{1,}[.][a-z]{1,}$');
     const patternPostalCode = new RegExp('^[0-9]{2}[-][0-9]{3}$');
     const patternPhoneNumber = new RegExp('^[0-9]{9}$');
