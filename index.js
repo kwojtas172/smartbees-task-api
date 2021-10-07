@@ -10,6 +10,10 @@ const url = 'mongodb+srv://smartbees:izpXyBZ2osn8psXT@cluster0.j1p6v.mongodb.net
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.redirect('/1');
+})
+
 app.get('/:id', (req, res) => {
   if(Number(req.path.slice(1)) < 1 || Number(req.path.slice(1)) > 5) return res.end();
     MongoClient.connect(url, function(err, data) {
