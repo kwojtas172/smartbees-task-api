@@ -1,14 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
 
+require('dotenv').config()
+
 const { MongoClient } = require("mongodb");
-const url = 'mongodb+srv://smartbees:izpXyBZ2osn8psXT@cluster0.j1p6v.mongodb.net';
+const url = process.env.DB_URL;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res) => { // redirect to /1
   res.redirect('/1');
